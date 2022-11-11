@@ -5,8 +5,12 @@ import moviepy.editor as edit
 
 def transform(title):  #mp4 轉換mp3  
     video = edit.VideoFileClip(title)
-    Newtitle = title.split(sep=".")[0]
+    if not filename.get():
+        Newtitle = title.split(sep=".")[0] 
+    else:
+        Newtitle = path.get() + '\\' +  filename.get()
     try:
+        print(Newtitle)
         video.audio.write_audiofile(f'{Newtitle}.mp3')
         transresult.set("轉換完成")
         print("轉換成功")
@@ -40,7 +44,7 @@ def download():
         
 #建立UI
 ui=tk.Tk()
-ui.geometry("500x500")
+ui.geometry("500x600")
 ui.title("Youtube下載器")
 #網址輸入
 frame1=tk.Frame(ui)
@@ -58,6 +62,14 @@ path=tk.StringVar()
 text2=tk.Entry(frame2,textvariable=path)
 label2.grid(row=0,column=0,pady=40)
 text2.grid(row=0,column=1,pady=40)
+# 檔名
+frame41 = tk.Frame(ui)
+frame41.pack()
+label3 = tk.Label(frame41, text="檔名", foreground="blue", font=("新細明體", 16))
+filename = tk.StringVar()
+text3 = tk.Entry(frame41, textvariable=filename)
+label3.grid(row=0, column=0, pady=40)
+text3.grid(row=0, column=1, pady=40)
 #選擇格式
 frame3=tk.Frame(ui)
 frame3.pack(pady=30)
